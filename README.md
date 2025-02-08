@@ -25,7 +25,7 @@ Returns the value of a token **in sol** based on its Pairaddress
 - body: `pairAddress`
 - Example https url: `https://api.com/pair_price?pairAddress=<pairAddress>`
 - Expected Response:
-```json
+```
 {
     "value": <numberOfTokenValueInSol>
 }
@@ -40,7 +40,7 @@ Endpoint to retreive data like name, CA, top 10 holders, ... of a coin based on 
 - body: `pairAddress`
 - Example https url: `https://api.com/coin_info?pairAddress=<pairAddress>`
 - Expected response:
-```json
+```ts
  {
     "pair_address": string,
     "token_address": string,
@@ -85,7 +85,7 @@ This endpoint is for the chart data that we provide. It should return the value 
 
 - exmaple https url: `POST https://api.com/coin_data`
 - Expected Response:
-```json
+```
   "bars": [
     {
         "time": <timestamp>,
@@ -97,4 +97,29 @@ This endpoint is for the chart data that we provide. It should return the value 
     }
   ] 
   "noData": true | false
+```
+
+## Live Websocket Data
+### Description
+Live Websocket Data for the coin
+
+### Websocket
+- this is a websocket
+- how we should be able to join: wss://api.com/live
+- on join this will be sent:
+```json
+{
+    "action": "join",
+    "room": "<pairAddress>"
+}
+```
+- expected response (everytime the chart udpates):
+```
+{
+    "content": {
+        "price_usd": <priceOfOneTokenInUsd>,
+        "price_sol": <priceOfOneTokenInSol>
+    },
+    "pairAddress": <pairAddress>
+}
 ```
