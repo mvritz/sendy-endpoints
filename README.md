@@ -136,7 +136,7 @@ We have a memescope section on our app which works exactly like this here: https
 
 ## Websockets
 ### Usage
-Connections to wss://api.com/new for new, wss://api.com/graduating, wss://api.com/graduated with the following expected response:
+Connections to `wss://api.com/new` for new, `wss://api.com/graduating` for graduating and `wss://api.com/graduated` for graduated coins with the following expected response:
 ```
 {
     "type": 'new' | 'change' | 'delete',
