@@ -105,7 +105,7 @@ Live Websocket Data for the coin
 
 ### Websocket
 - this is a websocket
-- how we should be able to join: wss://api.com/live
+- how we should be able to join: `wss://api.com/live`
 - on join this will be sent:
 ```json
 {
@@ -123,3 +123,48 @@ Live Websocket Data for the coin
     "pairAddress": <pairAddress>
 }
 ```
+
+# Memescope
+## Description
+We have a memescope section on our app which works exactly like this here: https://bullx.io/pump-vision
+
+## Endpoints
+- We need new endpoints which would look exactly like these 3: 
+- - https://scope.sendy.lol/new
+- - https://scope.sendy.lol/graduating
+- - https://scope.sendy.lol/graduated
+
+## Websockets
+### Usage
+Connections to wss://api.com/new for new, wss://api.com/graduating, wss://api.com/graduated with the following expected response:
+```
+{
+    "type": 'new' | 'change' | 'delete',
+    "coin": {
+        symbol: string;
+        imageUrl: string;
+        marketCap: string;
+        totalVolumeUSD: string;
+        timestamp: number;
+        top10HoldersSupplyPerc: string;
+        coinMint: string;
+        bondingCurve: number;
+    }
+}
+```
+The type new means a new coin appears on the list, the type change means there is a change on the one of the current cons and delete means that one of the coins on the list got removed.
+
+# Migration
+## Usage
+We need to have a websocket and an endpoint which displays currently migrating coins (=> bonding curve maxed, migrates from graduating to graduated list)
+### Endpoint
+Should look like this: `GET https://api.com/migrating` which displays all migrating coins in a json array.
+### Websocket
+Should be usable like this: `wss://api.com/<pairAddress>` and gives updates every 5 seconds of the coin migration status. Expected response:
+```
+{
+   "pairAddress": <pairAddress>,
+   "status": 'not_migrating' | 'migrating' | 'migration_complete'
+}
+```
+not_migrating | migrating only also works
